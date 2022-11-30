@@ -3,6 +3,14 @@ module github.com/daniel-888/BloXroute-CS/client
 go 1.19
 
 require (
+	github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130203810-1fc43dc801ec
+	github.com/google/uuid v1.1.2
+	github.com/rabbitmq/amqp091-go v1.5.0
+	github.com/sirupsen/logrus v1.9.0
+	google.golang.org/protobuf v1.28.1
+)
+
+require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/iamolegga/enviper v1.4.0 // indirect
@@ -11,8 +19,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
-	github.com/rabbitmq/amqp091-go v1.5.0 // indirect
-	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.6.1 // indirect
