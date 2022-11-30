@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/daniel-888/BloXroute-MQ/models"
-	service "github.com/daniel-888/BloXroute-CS/server/service"
+	"github.com/daniel-888/BloXroute-CS/models"
+	service "github.com/daniel-888/BloXroute-CS/server/app/service"
 	"github.com/golang/mock/gomock"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/protobuf/proto"
