@@ -3,5 +3,20 @@
 gen-protobuf:
 	protoc --proto_path=models --go_out=models --go_opt=paths=source_relative models/command.proto
 
+run-demo-docker-compose:
+	docker compose --profile demo up
+
+stop-demo-docker-compose:
+	docker compose down --remove-orphans
+
+run-server:
+	go run main.go server
+
+run-client:
+	go run main.go client
+
 run-rabbit-mq:
 	docker compose run --service-ports rabbit
+
+run-tests:
+	go test ./...
