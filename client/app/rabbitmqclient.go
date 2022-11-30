@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"time"
 
-	// "github.com/daniel-888/BloXroute-MQ/models"
 	amqp "github.com/rabbitmq/amqp091-go"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/proto"

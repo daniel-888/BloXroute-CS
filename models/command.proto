@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/daniel-888/BloXroute-MQ/models";
+option go_package = "github.com/daniel-888/BloXroute-CS/models";
 
 message Command {
   CommandType type = 1;
