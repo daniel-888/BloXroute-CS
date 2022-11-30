@@ -3,7 +3,7 @@ module github.com/daniel-888/BloXroute-CS/server
 go 1.19
 
 require (
-	github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130203810-1fc43dc801ec
+	github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130214350-9814d28b08dd
 	github.com/emirpasic/gods v1.18.1
 	github.com/golang/mock v1.6.0
 	github.com/rabbitmq/amqp091-go v1.5.0

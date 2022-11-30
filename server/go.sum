@@ -66,6 +66,8 @@ github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f/go.mod h1:E3G3o1h8I7cfc
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130203810-1fc43dc801ec h1:W317mgaHOnj8+EtxfOwFqSZv2zgZ4EnaNicLZucEeJc=
 github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130203810-1fc43dc801ec/go.mod h1:1T6jCBE1u29sNHpzRqOlK4WTCa8+7rHSRAAG6QgPnT8=
+github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130214350-9814d28b08dd h1:iWrxixhXw6CW+CVnGljpOoqCUgOLj+vmoW0AoQvVThc=
+github.com/daniel-888/BloXroute-CS/models v0.0.0-20221130214350-9814d28b08dd/go.mod h1:1T6jCBE1u29sNHpzRqOlK4WTCa8+7rHSRAAG6QgPnT8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
