@@ -42,7 +42,7 @@ func (a *App) Start(commandType models.CommandType) error {
 		}
 
 		// wait some time to send command again
-		secondsWait := rand.Int63n(10)
+		secondsWait := rand.Int63n(5)
 		time.Sleep(time.Duration(secondsWait) * time.Second)
 	}
 }

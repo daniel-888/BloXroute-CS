@@ -1,0 +1,17 @@
+FROM golang:1.19.2-alpine3.16 AS builder
+
+RUN echo GOLANG BUILD VERSION $(go version)
+
+WORKDIR /mnt/client
+
+COPY client build_dir/client
+WORKDIR build_dir/client
+
+RUN mkdir /mnt/client/app && \
+    go build -o /mnt/client/app/client-app .
+
+FROM alpine:latest
+
+COPY --from=builder /mnt/client/app/client-app /app/client-app
+
+ENTRYPOINT ["/app/client-app", "GetAllItems"]

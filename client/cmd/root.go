@@ -11,7 +11,10 @@ func NewCLI() *cobra.Command {
 	}
 
 	// cli.AddCommand(serverCmd())
-	cli.AddCommand(clientCmd())
+	cli.AddCommand(clientCmdAddItem())
+	cli.AddCommand(clientCmdGetItem())
+	cli.AddCommand(clientCmdRemoveItem())
+	cli.AddCommand(clientCmdGetAllItems())
 
 	return cli
 }

@@ -5,6 +5,7 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+	"fmt"
 
 	client "github.com/daniel-888/BloXroute-CS/client/app"
 	"github.com/daniel-888/BloXroute-CS/models"
@@ -14,14 +15,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-func clientCmd() *cobra.Command {
+func clientCmdAddItem() *cobra.Command {
 	var clientCmd = &cobra.Command{
-		Use:   "client",
+		Use:   "AddItem",
 		Short: "Client application",
 		Run: func(cmd *cobra.Command, args []string) {
 			log.SetOutput(os.Stdout)
 
-			configuration, err := getClientConfiguration()
+			configuration, err := getClientConfiguration("AddItem")
 			if err != nil {
 				log.Errorf("Cannot read configuration: %v", err)
 				return
@@ -34,7 +35,67 @@ func clientCmd() *cobra.Command {
 	return clientCmd
 }
 
-func getClientConfiguration() (client.Configurations, error) {
+func clientCmdRemoveItem() *cobra.Command {
+	var clientCmd = &cobra.Command{
+		Use:   "RemoveItem",
+		Short: "Client application",
+		Run: func(cmd *cobra.Command, args []string) {
+			log.SetOutput(os.Stdout)
+
+			configuration, err := getClientConfiguration("RemoveItem")
+			if err != nil {
+				log.Errorf("Cannot read configuration: %v", err)
+				return
+			}
+
+			startClientApp(configuration)
+		},
+	}
+
+	return clientCmd
+}
+
+func clientCmdGetItem() *cobra.Command {
+	var clientCmd = &cobra.Command{
+		Use:   "GetItem",
+		Short: "Client application",
+		Run: func(cmd *cobra.Command, args []string) {
+			log.SetOutput(os.Stdout)
+
+			configuration, err := getClientConfiguration("GetItem")
+			if err != nil {
+				log.Errorf("Cannot read configuration: %v", err)
+				return
+			}
+
+			startClientApp(configuration)
+		},
+	}
+
+	return clientCmd
+}
+
+func clientCmdGetAllItems() *cobra.Command {
+	var clientCmd = &cobra.Command{
+		Use:   "GetAllItems",
+		Short: "Client application",
+		Run: func(cmd *cobra.Command, args []string) {
+			log.SetOutput(os.Stdout)
+
+			configuration, err := getClientConfiguration("GetAllItems")
+			if err != nil {
+				log.Errorf("Cannot read configuration: %v", err)
+				return
+			}
+
+			startClientApp(configuration)
+		},
+	}
+
+	return clientCmd
+}
+
+func getClientConfiguration(command string) (client.Configurations, error) {
 	e := enviper.New(viper.New())
 
 	var pwd string
@@ -52,18 +113,26 @@ func getClientConfiguration() (client.Configurations, error) {
 	// defaults to ENV variable values
 	e.AutomaticEnv()
 
-	var configuration client.Configurations
+	type RabbitMQConfig struct {
+		RabbitMQConfig client.RabbitMQConfig
+	}
+
+	var rabbitmqconfig RabbitMQConfig
 	if err := e.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
 			log.Fatal("Error reading config file: ", err)
 		}
 	}
 
-	err = e.Unmarshal(&configuration)
+	err = e.Unmarshal(&rabbitmqconfig)
 	if err != nil {
 		log.Errorf("Unable to decode into struct, %v", err)
 		return client.Configurations{}, err
 	}
+
+	var configuration client.Configurations
+	configuration.CommandType = command
+	configuration.RabbitMQConfig = rabbitmqconfig.RabbitMQConfig
 	return configuration, nil
 }
 
@@ -75,6 +144,8 @@ func startClientApp(configuration client.Configurations) {
 	signal.Notify(terminate, syscall.SIGTERM, syscall.SIGINT)
 
 	commandType, ok := models.CommandType_value[configuration.CommandType]
+	fmt.Println("======================================\n", configuration.CommandType, "is ", commandType)
+	log.Errorf("======================================\n %s is %d", configuration.CommandType, commandType)
 	if !ok {
 		log.Errorf("Command not found: %s", configuration.CommandType)
 		return
