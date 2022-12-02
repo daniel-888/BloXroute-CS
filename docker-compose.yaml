@@ -42,7 +42,7 @@ services:
       - RABBITMQCONFIG_USER=user
       - RABBITMQCONFIG_PASSWORD=password
       - RABBITMQCONFIG_QUEUENAME=items_queue
-      - COMMANDTYPE=AddItem
+      # - COMMANDTYPE=AddItem
     depends_on:
       rabbit:
         condition: service_healthy
@@ -59,7 +59,7 @@ services:
       - RABBITMQCONFIG_USER=user
       - RABBITMQCONFIG_PASSWORD=password
       - RABBITMQCONFIG_QUEUENAME=items_queue
-      - COMMANDTYPE=GetAllItems
+      # - COMMANDTYPE=GetAllItems
     depends_on:
       rabbit:
         condition: service_healthy
@@ -76,7 +76,7 @@ services:
       - RABBITMQCONFIG_USER=user
       - RABBITMQCONFIG_PASSWORD=password
       - RABBITMQCONFIG_QUEUENAME=items_queue
-      - COMMANDTYPE=RemoveItem
+      # - COMMANDTYPE=RemoveItem
     depends_on:
       rabbit:
         condition: service_healthy
@@ -93,7 +93,7 @@ services:
       - RABBITMQCONFIG_USER=user
       - RABBITMQCONFIG_PASSWORD=password
       - RABBITMQCONFIG_QUEUENAME=items_queue
-      - COMMANDTYPE=GetItem
+      # - COMMANDTYPE=GetItem
     depends_on:
       rabbit:
         condition: service_healthy

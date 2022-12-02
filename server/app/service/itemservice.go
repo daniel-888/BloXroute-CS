@@ -3,6 +3,9 @@ package service
 import (
 	"context"
 	"errors"
+	"os"
+	"fmt"
+	"io"
 
 	log "github.com/sirupsen/logrus"
 
@@ -26,6 +29,15 @@ func New(repo repository.Repo) ItemService {
 }
 
 func (i *itemServiceImpl) ProcessItemCommand(ctx context.Context, command *models.Command) error {
+	// open a file
+	f, err := os.OpenFile("testlogrus.log", os.O_APPEND | os.O_CREATE | os.O_RDWR, 0666)
+	if err != nil {
+			fmt.Printf("error opening file: %v", err)
+	}
+	// defer f.Close()
+	log.SetOutput(io.MultiWriter(f, os.Stdout))
+	log.SetFormatter(&log.TextFormatter{})
+
 	log.WithField(traceIDKey, ctx.Value(traceIDKey)).
 		Info("Start processing command: ", command.String())
 

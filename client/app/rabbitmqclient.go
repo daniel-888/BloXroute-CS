@@ -78,6 +78,7 @@ func (c *Client) SendCommand(ctx context.Context, command *models.Command) error
 			Headers: map[string]any{
 				traceIDkey: ctx.Value(traceIDkey),
 			},
+			MessageId: ctx.Value(traceIDkey).(string),
 			DeliveryMode: amqp.Persistent,
 			ContentType: 	"application/protobuf",
 			Body: 				body,

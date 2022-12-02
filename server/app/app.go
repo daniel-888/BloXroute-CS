@@ -3,6 +3,8 @@ package app
 import (
 	"context"
 	"fmt"
+	"io"
+	"os"
 
 	"github.com/daniel-888/BloXroute-CS/models"
 	"github.com/daniel-888/BloXroute-CS/server/app/service"
@@ -62,7 +64,7 @@ func (a *App) Start() error {
 	msgs, err := ch.Consume(
 		queue.Name,
 		"",
-		false,
+		true,
 		false,
 		false,
 		false,
@@ -77,7 +79,7 @@ func (a *App) Start() error {
 			if err := a.ProcessMessage(d); err != nil {
 				log.Errorf("Cannot process message: %v", err)
 			} else {
-				d.Ack(false)
+				// d.Ack(false)
 			}
 		})
 	}
@@ -86,6 +88,15 @@ func (a *App) Start() error {
 }
 
 func (a *App) ProcessMessage(d amqp.Delivery) error {
+	// open a file
+	f, err := os.OpenFile("testlogrus.log", os.O_APPEND | os.O_CREATE | os.O_RDWR, 0666)
+	if err != nil {
+			fmt.Printf("error opening file: %v", err)
+	}
+	defer f.Close()
+	log.SetOutput(io.MultiWriter(f, os.Stdout))
+	log.SetFormatter(&log.TextFormatter{})
+
 	var traceID string
 	defer func() {
 		if err := recover(); err != nil {
@@ -94,7 +105,7 @@ func (a *App) ProcessMessage(d amqp.Delivery) error {
 	}()
 
 	command := new(models.Command)
-	err := proto.Unmarshal(d.Body, command)
+	err = proto.Unmarshal(d.Body, command)
 	if err != nil {
 		log.Errorf("Cannot unmarshal message: %v", err)
 		return err
