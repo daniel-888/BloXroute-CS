@@ -5,7 +5,8 @@ import (
 	"sync"
 
 	"github.com/daniel-888/BloXroute-CS/models"
-	"github.com/emirpasic/gods/maps/linkedhashmap"
+	// "github.com/emirpasic/gods/maps/linkedhashmap"
+	"github.com/daniel-888/BloXroute-CS/linkedhashmap"
 )
 
 //go:generate mockgen -package=repository -source=repo.go -destination=repo_mock.go

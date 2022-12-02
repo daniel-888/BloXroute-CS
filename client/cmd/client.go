@@ -5,7 +5,6 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"fmt"
 
 	client "github.com/daniel-888/BloXroute-CS/client/app"
 	"github.com/daniel-888/BloXroute-CS/models"
@@ -144,8 +143,6 @@ func startClientApp(configuration client.Configurations) {
 	signal.Notify(terminate, syscall.SIGTERM, syscall.SIGINT)
 
 	commandType, ok := models.CommandType_value[configuration.CommandType]
-	fmt.Println("======================================\n", configuration.CommandType, "is ", commandType)
-	log.Errorf("======================================\n %s is %d", configuration.CommandType, commandType)
 	if !ok {
 		log.Errorf("Command not found: %s", configuration.CommandType)
 		return
