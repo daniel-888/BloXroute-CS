@@ -12,6 +12,7 @@ require (
 )
 
 require (
+	github.com/daniel-888/BloXroute-CS/linkedhashmap v0.0.0-20221203214354-4ead1b65a64e // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/iamolegga/enviper v1.4.0 // indirect
