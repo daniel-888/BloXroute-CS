@@ -10,13 +10,22 @@ stop-demo-docker-compose:
 	docker compose down --remove-orphans
 
 run-server:
-	go run main.go server
+	cd server && go run main.go server
 
-run-client:
-	go run main.go client
+run-client-add-item:
+	cd client && go run main.go AddItem
+
+run-client-remove-item:
+	cd client && go run main.go RemoveItem
+
+run-client-get-item:
+	cd client && go run main.go GetItem
+
+run-client-get-all-items:
+	cd client && go run main.go GetAllItems
 
 run-rabbit-mq:
 	docker compose run --service-ports rabbit
 
 run-tests:
-	go test ./...
+	go test ./server/... && go test ./client/...
