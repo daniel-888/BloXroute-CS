@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+	"strconv"
 
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
@@ -24,14 +25,14 @@ func NewApp(client *Client) *App {
 	}
 }
 
-func (a *App) Start(commandType models.CommandType) error {
+func (a *App) Start(commandType models.CommandType, args []string) error {
 	rand.Seed(time.Now().Unix())
 
 	for {
 		traceID := uuid.New().String()
 		ctx := context.WithValue(context.Background(), traceIDkey, traceID)
 
-		command, err := createRandomCommand(commandType)
+		command, err := createRandomCommand(commandType, args)
 		if err != nil {
 			return err
 		}
@@ -47,7 +48,7 @@ func (a *App) Start(commandType models.CommandType) error {
 	}
 }
 
-func createRandomCommand(commandType models.CommandType) (*models.Command, error) {
+func createRandomCommand(commandType models.CommandType, args []string) (*models.Command, error) {
 	switch commandType {
 	case models.CommandType_AddItem:
 		itemId := rand.Int63()
@@ -59,14 +60,40 @@ func createRandomCommand(commandType models.CommandType) (*models.Command, error
 			ItemPayload: fmt.Sprintf("%c", randomChar),
 		}, nil
 	case models.CommandType_GetItem:
-		itemId := rand.Int63()
+		var itemId int64
+		if len(args) > 1 {
+			return nil, errors.New("command argument too much")
+		}
+		
+		if len(args) == 0 {
+			itemId = rand.Int63()
+		} else {
+			n, err := strconv.ParseInt(args[0], 10, 64)
+			if err != nil {
+				return nil, errors.New("command argument invalid")
+			}
+			itemId = n
+		}
 
 		return &models.Command{
 			Type:   commandType,
 			ItemID: itemId,
 		}, nil
 	case models.CommandType_RemoveItem:
-		itemId := rand.Int63()
+		var itemId int64
+		if len(args) > 1 {
+			return nil, errors.New("command argument too much")
+		}
+		
+		if len(args) == 0 {
+			itemId = rand.Int63()
+		} else {
+			n, err := strconv.ParseInt(args[0], 10, 64)
+			if err != nil {
+				return nil, errors.New("command argument invalid")
+			}
+			itemId = n
+		}
 
 		return &models.Command{
 			Type:   commandType,
@@ -77,6 +104,6 @@ func createRandomCommand(commandType models.CommandType) (*models.Command, error
 			Type: commandType,
 		}, nil
 	default:
-		return nil, errors.New("Command type is unknown")
+		return nil, errors.New("command type is unknown")
 	}
 }

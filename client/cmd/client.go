@@ -27,7 +27,7 @@ func clientCmdAddItem() *cobra.Command {
 				return
 			}
 
-			startClientApp(configuration)
+			startClientApp(configuration, args)
 		},
 	}
 
@@ -47,7 +47,7 @@ func clientCmdRemoveItem() *cobra.Command {
 				return
 			}
 
-			startClientApp(configuration)
+			startClientApp(configuration, args)
 		},
 	}
 
@@ -67,7 +67,7 @@ func clientCmdGetItem() *cobra.Command {
 				return
 			}
 
-			startClientApp(configuration)
+			startClientApp(configuration, args)
 		},
 	}
 
@@ -87,7 +87,7 @@ func clientCmdGetAllItems() *cobra.Command {
 				return
 			}
 
-			startClientApp(configuration)
+			startClientApp(configuration, args)
 		},
 	}
 
@@ -135,7 +135,7 @@ func getClientConfiguration(command string) (client.Configurations, error) {
 	return configuration, nil
 }
 
-func startClientApp(configuration client.Configurations) {
+func startClientApp(configuration client.Configurations, args []string) {
 	c := client.New(configuration)
 	app := client.NewApp(c)
 
@@ -154,7 +154,7 @@ func startClientApp(configuration client.Configurations) {
 			return
 		}
 
-		err = app.Start(models.CommandType(commandType))
+		err = app.Start(models.CommandType(commandType), args)
 		if err != nil {
 			log.Errorf("Error happened for client: %v", err)
 		}

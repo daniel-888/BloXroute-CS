@@ -1,6 +1,6 @@
 package workerpool
 
-import "fmt"
+// import "fmt"
 
 type WorkerPool struct {
 	numWorkers int
@@ -18,7 +18,7 @@ func (w *WorkerPool) Start() {
 	for i := 0; i < w.numWorkers; i++ {
 		go func(count int) {
 			for task := range w.chTasks {
-				fmt.Printf("this is worker %d\n", count)
+				// fmt.Printf("this is worker %d\n", count)
 				task()
 			}
 		}(i)

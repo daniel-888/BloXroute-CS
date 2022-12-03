@@ -64,12 +64,16 @@ func (a *App) Start() error {
 	msgs, err := ch.Consume(
 		queue.Name,
 		"",
-		true,
+		false,
 		false,
 		false,
 		false,
 		nil,
 	)
+  
+	if err != nil {
+		return err
+	}
 
 	a.workerPool.Start()
 
@@ -78,8 +82,8 @@ func (a *App) Start() error {
 		a.workerPool.SubmitTask(func() {
 			if err := a.ProcessMessage(d); err != nil {
 				log.Errorf("Cannot process message: %v", err)
-			} else {
-				// d.Ack(false)
+			} else if err := d.Ack(false); err != nil {
+				log.Errorf("Cannot acknowledge the message, dropped: %v", err)
 			}
 		})
 	}
